@@ -13,7 +13,7 @@ private:
 	int doorIndex = Empty;
 
 public:
-	void SetDoorIndex(int& index);
+	void SetDoorIndex(const int& index);
 	int GetDoorIndex();
 };
 

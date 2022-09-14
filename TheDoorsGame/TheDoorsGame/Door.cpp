@@ -1,6 +1,6 @@
 #include "Door.h"
 
-void Door::SetDoorIndex(int& index)
+void Door::SetDoorIndex(const int& index)
 {
     doorIndex = index;
 }

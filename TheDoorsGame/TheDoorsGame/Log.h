@@ -2,8 +2,8 @@
 #include <iostream>
 
 #include <optional>
-template<typename S, typename I, typename T>
-void Log(S _first, const std::optional<I> _second = std::nullopt, const std::optional<T> _third = std::nullopt)
+template<typename F, typename S = F, typename T = S>
+void Log(F _first, S _second = NULL, T _third = NULL)
 {
 	std::cout << _first << _second << _third << "\n";
 }

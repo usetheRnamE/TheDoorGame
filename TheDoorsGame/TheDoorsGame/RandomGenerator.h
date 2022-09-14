@@ -3,9 +3,9 @@
 #include <random>
 
 #define defLowB 0
-#define defUpB 25
+#define defUpB 9
 
-inline int GeneratePosRandInt(int lowBound = defLowB, int upBound = defUpB)
+inline int GeneratePosRandInt(const int lowBound = defLowB, const int upBound = defUpB)
 {
 	std::random_device rseed;
 	std::mt19937 rgen(rseed());
