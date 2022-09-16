@@ -1,9 +1,8 @@
 #pragma once
 #include <iostream>
-
-#include <optional>
+extern std::wostream wcout;
 template<typename F, typename S = F, typename T = S>
-void Log(F _first, S _second = NULL, T _third = NULL)
+void Log(F _first, S _second = "", T _third = "")
 {
-	std::cout << _first << _second << _third << "\n";
+	std::wcout << _first << _second << _third << "\n";
 }

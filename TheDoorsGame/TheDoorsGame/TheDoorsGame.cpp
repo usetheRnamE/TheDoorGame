@@ -6,6 +6,7 @@
 #include <io.h>
 #include <algorithm>
 #include <random>
+#include <Windows.h>
 
 #include "Log.h"
 #include "CheckInputIndex.h"
@@ -15,16 +16,14 @@
 
 enum InputIndex 
 {
-  I = 73, i = 105, R = 82, r = 114, P = 80, p = 112, C = 67, c = 99
+  I = 73, i = 105, R = 82, r = 114, P = 80, p = 112, C = 67, c = 99,
+  One = 49, Two = 50, Three = 51, Four = 52, Five = 53, Six = 54, Seven = 55, Eight = 56, Nine = 57
 };
 
 inline bool GetInput(int upCaseVal, int lowCaseVal)
 {
-        int input;
-
-        input = _getch();
-        putchar(input);
-        system("cls");
+        wchar_t input;
+        std::wcin >> input;
 
         if (input == upCaseVal || input == lowCaseVal)
             return true;
@@ -49,34 +48,7 @@ inline void RandomlyShufle(DoorsRef doors)
 #define ZERO 0;
 static int coinsCount = ZERO;
 
-void OpenTheDoor(Door& door)
-{
-    switch (door.GetDoorIndex())
-    {
-    case Empty:
-        Log("This door is empty, not bad, not good");
-        Play();
-        break;
-    case Ghost:
-        Log("Booooo, you are in a trouble");
-        Replay();
-        break;
-    case Coin:
-        Log("Fortuna mama mia, u have found a coin");
-        coinsCount++;
-
-        #define MaxRounds 10
-        if (coinsCount == MaxRounds)
-        {
-            Log("U win");
-            main();
-        }
-        else  Play();       
-        break;
-    default:
-        break;
-    }
-}
+void OpenTheDoor(Door& door);
 
 void Play()
 {
@@ -98,7 +70,7 @@ void Play()
 INPUT:
     std::cin >> userDoorIndex;
 
-    int inputKey[9] = { 49, 50, 51, 52, 53, 54, 55, 56, 57 };
+    int inputKey[9] = { One, Two, Three, Four, Five, Six, Seven, Eight, Nine };
 
     for (int i = 0; i < doorCount; i++)
     {
@@ -120,27 +92,54 @@ inline void Replay()
     Play();
 }
 
-void Close()
-{
+int main(void);
 
+void OpenTheDoor(Door& door)
+{
+    switch (door.GetDoorIndex())
+    {
+    case Empty:
+        Log("This door is empty, not bad, not good");
+        Play();
+        break;
+    case Ghost:
+        GhostLog();
+        Log("Booooo, you are in a trouble");
+        Replay();
+        break;
+    case Coin:
+        CoinLog();
+        Log("Fortuna mama mia, u have found a coin");
+        coinsCount++;
+
+        #define MaxRounds 10
+        if (coinsCount == MaxRounds)
+        {
+            Log("U win");
+            main();
+        }
+        else  Play();       
+        break;
+    default:
+        break;
+    }
 }
 
 int main(void)
 {
-    _setmode(_fileno(stdout), _O_U16TEXT);
-
+    //_setmode(_fileno(stdout), _O_U16TEXT);
     #pragma region StartMenu
     Log("Welcome to The Doors. Just choose the door and try your luck");
 
     Log("Earn 10 coins to win, avoid ghost and don`t be upset by an empty door");
 
     Log("Press 'I' to get navigation info");
-    if (GetInput(I, i))
-        Log("Press: P -> play, C -> close");
-    #pragma endregion
+
+    if (GetInput(I, i)) Log("Press: P -> play"); 
 
     if (GetInput(P, p)) Play();
-    else if (GetInput(C, c)) Close();    
+    else Log("Invalid input");
+    #pragma endregion
 }
 
 
