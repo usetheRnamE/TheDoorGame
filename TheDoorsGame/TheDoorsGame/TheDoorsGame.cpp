@@ -52,7 +52,7 @@ void OpenTheDoor(Door& door);
 
 void Play()
 {
-    LockLog();
+   // LockLog();
 
     unsigned int doorCount = GeneratePosRandInt();
 
@@ -128,6 +128,9 @@ void OpenTheDoor(Door& door)
 int main(void)
 {
     //_setmode(_fileno(stdout), _O_U16TEXT);
+
+    LockLog();
+
     #pragma region StartMenu
     Log("Welcome to The Doors. Just choose the door and try your luck");
 
@@ -139,6 +142,7 @@ int main(void)
 
     if (GetInput(P, p)) Play();
     else Log("Invalid input");
+
     #pragma endregion
 }
 
